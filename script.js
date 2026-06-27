@@ -2,7 +2,7 @@ const quizEl = document.getElementById('quiz');
 const submitBtn = document.getElementById('submit');
 const resetBtn = document.getElementById('reset');
 const toggleBtn = document.getElementById('toggle-images');
-const scoreEl = document.getElementById('score'); // Thay thế resultEl bằng scoreEl
+const scoreEl = document.getElementById('score');
 
 let showImages = true;
 const hasImages = window.QUIZ_DATA && window.QUIZ_DATA.some(q => q.image);
@@ -11,6 +11,7 @@ if (!hasImages && toggleBtn) {
 }
 
 function renderBlocks(blocks) {
+  if (!blocks) return '';
   return blocks.map(block => {
     if (block.type === 'pre') {
       return `<pre>${escapeHtml(block.text)}</pre>`;
@@ -88,21 +89,19 @@ function grade() {
 }
 
 function resetQuiz() {
-  // Reset các ô tích chọn
   quizEl.querySelectorAll('input[type="radio"]').forEach(input => {
     input.checked = false;
   });
-  // Xóa màu xanh/đỏ của kết quả cũ
   quizEl.querySelectorAll('.choice').forEach(choice => {
     choice.classList.remove('correct', 'incorrect');
   });
-  // Reset điểm số hiển thị trên thanh header về 0 thay vì dùng biến resultEl lỗi
   if (scoreEl) {
     scoreEl.textContent = '0';
   }
 }
 
 function escapeHtml(str) {
+  if (!str) return '';
   return str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -111,8 +110,20 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-if (submitBtn) submitBtn.addEventListener('click', grade);
-if (resetBtn) resetBtn.addEventListener('click', resetQuiz);
+// LẮNG NGHE SỰ KIỆN NÚT BẤM CHUẨN
+if (submitBtn) {
+  submitBtn.addEventListener('click', (event) => {
+    event.preventDefault(); // An toàn tuyệt đối, không lo reload trang
+    grade();
+  });
+}
+
+if (resetBtn) {
+  resetBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    resetQuiz();
+  });
+}
 
 if (toggleBtn) {
   toggleBtn.addEventListener('click', () => {
@@ -123,5 +134,5 @@ if (toggleBtn) {
   });
 }
 
-// Chạy hàm khởi tạo dữ liệu
+// Khởi chạy ứng dụng
 renderQuiz();
