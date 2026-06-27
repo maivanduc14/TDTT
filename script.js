@@ -79,7 +79,11 @@ function grade() {
     }
   });
 
-  resultEl.textContent = `Bạn trả lời đúng ${correct} / ${total} câu.`;
+ const scoreEl = document.getElementById('score');
+if (scoreEl) {
+    scoreEl.textContent = `${correct} / ${total}`;
+}
+window.scrollTo({ top: 0, behavior: 'smooth' });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
