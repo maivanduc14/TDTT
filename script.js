@@ -1,8 +1,8 @@
-﻿const quizEl = document.getElementById('quiz');
+const quizEl = document.getElementById('quiz');
 const submitBtn = document.getElementById('submit');
 const resetBtn = document.getElementById('reset');
 const toggleBtn = document.getElementById('toggle-images');
-const resultEl = document.getElementById('result');
+const scoreEl = document.getElementById('score'); // Thay thế resultEl bằng scoreEl
 
 let showImages = true;
 const hasImages = window.QUIZ_DATA && window.QUIZ_DATA.some(q => q.image);
@@ -20,6 +20,7 @@ function renderBlocks(blocks) {
 }
 
 function renderQuiz() {
+  if (!quizEl || !window.QUIZ_DATA) return;
   quizEl.innerHTML = '';
   window.QUIZ_DATA.forEach((q, idx) => {
     const card = document.createElement('article');
@@ -60,6 +61,7 @@ function grade() {
 
   window.QUIZ_DATA.forEach((q, idx) => {
     const card = quizEl.querySelector(`[data-qid="${q.id}"]`);
+    if (!card) return;
     const selected = card.querySelector(`input[name="q${idx}"]:checked`);
     const choices = [...card.querySelectorAll('.choice')];
 
@@ -79,22 +81,25 @@ function grade() {
     }
   });
 
- const scoreEl = document.getElementById('score');
-if (scoreEl) {
+  if (scoreEl) {
     scoreEl.textContent = `${correct} / ${total}`;
-}
-window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function resetQuiz() {
+  // Reset các ô tích chọn
   quizEl.querySelectorAll('input[type="radio"]').forEach(input => {
     input.checked = false;
   });
+  // Xóa màu xanh/đỏ của kết quả cũ
   quizEl.querySelectorAll('.choice').forEach(choice => {
     choice.classList.remove('correct', 'incorrect');
   });
-  resultEl.textContent = 'Chưa nộp bài.';
+  // Reset điểm số hiển thị trên thanh header về 0 thay vì dùng biến resultEl lỗi
+  if (scoreEl) {
+    scoreEl.textContent = '0';
+  }
 }
 
 function escapeHtml(str) {
@@ -106,8 +111,9 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-submitBtn.addEventListener('click', grade);
-resetBtn.addEventListener('click', resetQuiz);
+if (submitBtn) submitBtn.addEventListener('click', grade);
+if (resetBtn) resetBtn.addEventListener('click', resetQuiz);
+
 if (toggleBtn) {
   toggleBtn.addEventListener('click', () => {
     showImages = !showImages;
@@ -117,4 +123,5 @@ if (toggleBtn) {
   });
 }
 
+// Chạy hàm khởi tạo dữ liệu
 renderQuiz();
