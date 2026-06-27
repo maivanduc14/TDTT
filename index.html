@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font đẹp -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Quiz Trắc Nghiệm</title>
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <div>
+
+            <h1>Quiz Trắc Nghiệm</h1>
+
+            <p>Ôn tập thông minh • Chấm điểm tự động</p>
+
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <div class="score-box">
+
+            <span>Điểm</span>
+
+            <strong id="score">0</strong>
+
+        </div>
+
+        <button id="theme">
+            🌙
+        </button>
+
+    </div>
+
+</header>
+
+<div class="progress">
+
+    <div id="progress-bar"></div>
+
+</div>
+
+<main>
+
+    <section id="quiz" class="quiz"></section>
+
+</main>
+
+<button id="scrollTop">
+
+    ↑
+
+</button>
+
+<footer class="site-footer">
+
+    <div class="footer-left">
+
+        <span id="question-count">
+
+            0 / 50 câu
+
+        </span>
+
+    </div>
+
+    <div class="footer-right">
+
+        <button id="toggle-images" class="secondary">
+
+            🖼 Ảnh
+
+        </button>
+
+        <button id="reset" class="ghost">
+
+            🔄 Làm lại
+
+        </button>
+
+        <button id="submit" class="primary">
+
+            ✅ Nộp bài
+
+        </button>
+
+    </div>
+
+</footer>
+
+<div id="toast"></div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
