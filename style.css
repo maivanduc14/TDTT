@@ -1,0 +1,249 @@
+/* ==========================================================================
+   1. ĐỊNH NGHĨA BIẾN MÀU SẮC (Modern Warm Terracotta)
+   ========================================================================== */
+:root {
+    /* Nền & Thẻ */
+    --bg: #fcfbfa;
+    --card: rgba(255, 255, 255, 0.85);
+    --border: rgba(224, 93, 59, 0.08);
+    
+    /* Chữ */
+    --text: #2d2622;   
+    --muted: #756a63;  
+    
+    /* Màu thương hiệu & Trạng thái */
+    --accent: #e05d3b;   /* Cam đất chủ đạo */
+    --accent-hover: #c64b2c;
+    --success: #388e3c;  
+    --danger: #d32f2f;   
+
+    /* Hiệu ứng */
+    --shadow:
+        0 4px 20px rgba(224, 93, 59, 0.02),
+        0 10px 40px rgba(0, 0, 0, 0.04);
+    --radius: 16px;
+    --transition: all 0.25s ease;
+}
+
+/* Gợi ý nếu bạn viết thêm chức năng Dark Mode (thêm class .dark vào body) */
+body.dark {
+    --bg: #1a1614;
+    --card: rgba(38, 32, 29, 0.85);
+    --border: rgba(255, 255, 255, 0.05);
+    --text: #f3f0ed;
+    --muted: #a3968e;
+    --accent: #f07654;
+    --accent-hover: #fa8c6c;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   2. GLOBAL STYLES
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(circle at top right, #fff5ee 0%, #f7f3ee 100%);
+    color: var(--text);
+    font-family: 'Inter', "Segoe UI", sans-serif;
+    transition: background var(--transition);
+}
+
+/* ==========================================================================
+   3. HEADER & PROGRESS BAR
+   ========================================================================== */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand-mark {
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.brand p {
+    margin: 0.2rem 0 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.score-box {
+    background: rgba(224, 93, 59, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--accent);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#theme {
+    background: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+#theme:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+/* Thanh tiến trình chạy dưới header */
+.progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+#progress-bar {
+    height: 100%;
+    width: 30%; /* Thay đổi bằng JS */
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   4. NỘI DUNG CHÍNH (QUIZ BOXES)
+   ========================================================================== */
+main {
+    flex: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Class .quiz-card này bạn sẽ append bằng JS vào trong #quiz */
+.quiz-card {
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+/* ==========================================================================
+   5. CÁC ĐỐI TƯỢNG NÚT BẤM (BUTTONS)
+   ========================================================================== */
+button {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+button.primary {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+button.primary:hover {
+    background: var(--accent-hover);
+}
+
+button.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+button.secondary:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+button.ghost {
+    background: transparent;
+    color: var(--muted);
+}
+
+button.ghost:hover {
+    color: var(--text);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* Nút cuộn lên đầu trang */
+#scrollTop {
+    position: fixed;
+    bottom: 5rem;
+    right: 2rem;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    justify-content: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+/* ==========================================================================
+   6. SITE FOOTER
+   ========================================================================== */
+.site-footer {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
+}
+
+.footer-right {
+    display: flex;
+    gap: 0.75rem;
+}
+
+#question-count {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 500;
+}
